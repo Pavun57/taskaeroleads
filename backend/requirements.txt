@@ -1,0 +1,25 @@
+# TaskAero Leads - Common Requirements
+# All dependencies for Task 1, Task 2, and Task 3
+
+# FastAPI and Server
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+python-dotenv==1.0.0
+python-multipart==0.0.6
+
+# Task 1: LinkedIn Scraper
+selenium==4.15.2
+beautifulsoup4==4.12.2
+lxml==4.9.3
+webdriver-manager==4.0.1
+
+# Task 2: Autodialer
+twilio==8.10.0
+
+# Task 3: Blog Generator
+# (Uses only FastAPI and Gemini)
+
+# AI/ML
+google-generativeai==0.3.2
+

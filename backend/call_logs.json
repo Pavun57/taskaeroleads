@@ -1,0 +1,12 @@
+[
+  {
+    "call_id": "de48b2b6-907d-4e73-a744-27952e58848e",
+    "phone_number": "987655392",
+    "status": "failed",
+    "duration": 1.5494649410247803,
+    "timestamp": "2025-11-05 17:33:55",
+    "message": "Call failed: Network error",
+    "error_message": "Network error",
+    "twilio_sid": null
+  }
+]
