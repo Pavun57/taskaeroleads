@@ -2,11 +2,15 @@ services:
   - type: web
     name: taskaeroleads-backend
     env: python
-    buildCommand: chmod +x build.sh && ./build.sh
+    buildCommand: export CARGO_HOME=/tmp/cargo RUSTUP_HOME=/tmp/rustup && mkdir -p /tmp/cargo /tmp/rustup && pip install --upgrade pip setuptools wheel && pip install --prefer-binary --no-cache-dir -r requirements.txt
     startCommand: gunicorn main:main_app --config gunicorn_config.py --bind 0.0.0.0:$PORT
     envVars:
       - key: PORT
         value: 8000
       - key: PYTHON_VERSION
         value: 3.11
+      - key: CARGO_HOME
+        value: /tmp/cargo
+      - key: RUSTUP_HOME
+        value: /tmp/rustup
 
