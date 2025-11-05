@@ -38,5 +38,215 @@
     "message": "Call answered and completed successfully",
     "error_message": null,
     "twilio_sid": null
+  },
+  {
+    "call_id": "38501dd1-db30-4990-a31c-9bcac297bc6d",
+    "phone_number": "9990022288",
+    "status": "queued",
+    "duration": 1.795802116394043,
+    "timestamp": "2025-11-05 21:53:28",
+    "message": "Call is queued - line busy or ringing",
+    "error_message": null,
+    "twilio_sid": null
+  },
+  {
+    "call_id": "b6c93bbe-c37e-4bf6-9dab-acd320e53f68",
+    "phone_number": "9990022288",
+    "status": "answered",
+    "duration": 1.8121905326843262,
+    "timestamp": "2025-11-05 21:54:10",
+    "message": "Call answered and completed successfully",
+    "error_message": null,
+    "twilio_sid": null
+  },
+  {
+    "call_id": "e5c414bd-2156-4f17-a836-010731ef3e76",
+    "phone_number": "9990022244",
+    "status": "failed",
+    "duration": 2.1141350269317627,
+    "timestamp": "2025-11-05 21:54:12",
+    "message": "Call failed: No answer",
+    "error_message": "No answer",
+    "twilio_sid": null
+  },
+  {
+    "call_id": "9ff222b1-dd32-470a-9789-adb7c396858d",
+    "phone_number": "9990011199",
+    "status": "answered",
+    "duration": 2.5261240005493164,
+    "timestamp": "2025-11-05 21:54:15",
+    "message": "Call answered and completed successfully",
+    "error_message": null,
+    "twilio_sid": null
+  },
+  {
+    "call_id": "da3f7a7d-0c36-4296-a405-40d991336ab3",
+    "phone_number": "9990022222",
+    "status": "queued",
+    "duration": 2.9389727115631104,
+    "timestamp": "2025-11-05 21:54:18",
+    "message": "Call is queued - line busy or ringing",
+    "error_message": null,
+    "twilio_sid": null
+  },
+  {
+    "call_id": "aed22482-e2ad-45f4-a4a3-7387d46fb166",
+    "phone_number": "9990022266",
+    "status": "answered",
+    "duration": 2.646310329437256,
+    "timestamp": "2025-11-05 21:54:21",
+    "message": "Call answered and completed successfully",
+    "error_message": null,
+    "twilio_sid": null
+  },
+  {
+    "call_id": "56027374-5db0-4a02-a2e3-3569cbff5513",
+    "phone_number": "9990022277",
+    "status": "answered",
+    "duration": 1.7096264362335205,
+    "timestamp": "2025-11-05 21:54:22",
+    "message": "Call answered and completed successfully",
+    "error_message": null,
+    "twilio_sid": null
+  },
+  {
+    "call_id": "3d5b39b5-daf2-410d-9bf8-5694e9dbaf76",
+    "phone_number": "8880011122",
+    "status": "answered",
+    "duration": 2.0526022911071777,
+    "timestamp": "2025-11-05 21:54:24",
+    "message": "Call answered and completed successfully",
+    "error_message": null,
+    "twilio_sid": null
+  },
+  {
+    "call_id": "2ccddec8-318a-40dc-9056-bc174b2ccbdf",
+    "phone_number": "9990011155",
+    "status": "answered",
+    "duration": 2.7834274768829346,
+    "timestamp": "2025-11-05 21:54:27",
+    "message": "Call answered and completed successfully",
+    "error_message": null,
+    "twilio_sid": null
+  },
+  {
+    "call_id": "9930e9f3-c1ec-44a4-b535-63d0a2c91167",
+    "phone_number": "9990011144",
+    "status": "queued",
+    "duration": 2.39616322517395,
+    "timestamp": "2025-11-05 21:54:29",
+    "message": "Call is queued - line busy or ringing",
+    "error_message": null,
+    "twilio_sid": null
+  },
+  {
+    "call_id": "8512ba1e-0c94-4862-82d5-3df3bfde873f",
+    "phone_number": "9990011177",
+    "status": "answered",
+    "duration": 1.657109260559082,
+    "timestamp": "2025-11-05 21:54:31",
+    "message": "Call answered and completed successfully",
+    "error_message": null,
+    "twilio_sid": null
+  },
+  {
+    "call_id": "807ac816-5cec-4fb0-95ff-30ef4b4a140f",
+    "phone_number": "8880011133",
+    "status": "queued",
+    "duration": 1.4312736988067627,
+    "timestamp": "2025-11-05 21:54:33",
+    "message": "Call is queued - line busy or ringing",
+    "error_message": null,
+    "twilio_sid": null
+  },
+  {
+    "call_id": "5ddb609f-3e6b-4266-b973-6c7ad9897276",
+    "phone_number": "9990011188",
+    "status": "answered",
+    "duration": 3.226818084716797,
+    "timestamp": "2025-11-05 21:54:36",
+    "message": "Call answered and completed successfully",
+    "error_message": null,
+    "twilio_sid": null
+  },
+  {
+    "call_id": "4e0dee10-7ddb-45f0-a093-bf4ce60d6abe",
+    "phone_number": "9990011133",
+    "status": "answered",
+    "duration": 1.5526676177978516,
+    "timestamp": "2025-11-05 21:54:37",
+    "message": "Call answered and completed successfully",
+    "error_message": null,
+    "twilio_sid": null
+  },
+  {
+    "call_id": "14517eb7-1382-4144-acc6-4f5d5f2855a5",
+    "phone_number": "9990011122",
+    "status": "failed",
+    "duration": 1.080395221710205,
+    "timestamp": "2025-11-05 21:54:38",
+    "message": "Call failed: Line busy",
+    "error_message": "Line busy",
+    "twilio_sid": null
+  },
+  {
+    "call_id": "7f31a9f9-3084-49c0-912b-25a364811b8a",
+    "phone_number": "9990022211",
+    "status": "answered",
+    "duration": 2.2365071773529053,
+    "timestamp": "2025-11-05 21:54:41",
+    "message": "Call answered and completed successfully",
+    "error_message": null,
+    "twilio_sid": null
+  },
+  {
+    "call_id": "6383d6ee-d59d-4700-b594-cba66674fbb3",
+    "phone_number": "9990022299",
+    "status": "answered",
+    "duration": 2.5715222358703613,
+    "timestamp": "2025-11-05 21:54:43",
+    "message": "Call answered and completed successfully",
+    "error_message": null,
+    "twilio_sid": null
+  },
+  {
+    "call_id": "e572f39c-11c6-4158-a03f-dd7dbe6783ac",
+    "phone_number": "9990022255",
+    "status": "answered",
+    "duration": 3.3185875415802,
+    "timestamp": "2025-11-05 21:54:47",
+    "message": "Call answered and completed successfully",
+    "error_message": null,
+    "twilio_sid": null
+  },
+  {
+    "call_id": "618d403d-81f4-4560-aae0-8c6440e82565",
+    "phone_number": "9990011166",
+    "status": "queued",
+    "duration": 2.9661319255828857,
+    "timestamp": "2025-11-05 21:54:50",
+    "message": "Call is queued - line busy or ringing",
+    "error_message": null,
+    "twilio_sid": null
+  },
+  {
+    "call_id": "d5f3baf1-fd47-4801-b821-77e1c2f1e87f",
+    "phone_number": "9990022233",
+    "status": "answered",
+    "duration": 2.372974395751953,
+    "timestamp": "2025-11-05 21:54:52",
+    "message": "Call answered and completed successfully",
+    "error_message": null,
+    "twilio_sid": null
+  },
+  {
+    "call_id": "fd37f6f3-8df2-4ec1-9557-db2575939426",
+    "phone_number": "98635939222",
+    "status": "failed",
+    "duration": 2.147855281829834,
+    "timestamp": "2025-11-05 21:54:54",
+    "message": "Call failed: Line busy",
+    "error_message": "Line busy",
+    "twilio_sid": null
   }
 ]

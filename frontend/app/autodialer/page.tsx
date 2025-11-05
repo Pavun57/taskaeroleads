@@ -95,7 +95,7 @@ export default function AutodialerPage() {
     const file = e.target.files?.[0]
     if (!file) return
     setSelectedFile(file)
-    
+
     const reader = new FileReader()
     reader.onload = (event) => {
       const text = event.target?.result as string

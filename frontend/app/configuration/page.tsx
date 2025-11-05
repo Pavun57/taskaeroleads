@@ -309,17 +309,17 @@ export default function ConfigurationPage() {
                       <div className="flex items-center gap-2">
                         {field.key !== "gemini_model" && getStatusText(status)}
                         {status === "configured" && (
-                          <button
+                  <button
                             onClick={() => handleClear(field.key)}
                             disabled={isClearing}
                             className="p-2 hover:bg-destructive/20 rounded-lg transition-colors disabled:opacity-50"
                             title="Clear configuration"
-                          >
+                  >
                             <Trash2 className={`w-4 h-4 text-destructive ${isClearing ? "animate-pulse" : ""}`} />
-                          </button>
+                  </button>
                         )}
                       </div>
-                    </div>
+                </div>
 
                       <div className="space-y-3">
                         <input
@@ -347,7 +347,7 @@ export default function ConfigurationPage() {
                               Save
                             </>
                           )}
-                        </button>
+                      </button>
                       </div>
                     </div>
                   )

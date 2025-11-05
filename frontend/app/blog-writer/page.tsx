@@ -132,30 +132,30 @@ export default function BlogWriterPage() {
         const generatedBlog = response.data.blogs[0]
         const wordCount = generatedBlog.content ? generatedBlog.content.split(/\s+/).length : 0
         
-        const newPost: BlogPost = {
+      const newPost: BlogPost = {
           id: generatedBlog.blog_id,
           title: generatedBlog.title,
           topic: generatedBlog.topic,
           tone: "professional",
           wordCount,
-          status: "draft",
+        status: "draft",
           seoScore: calculateSEOScore(generatedBlog.content, wordCount),
           createdAt: generatedBlog.created_at.split("T")[0],
           content: generatedBlog.content,
           summary: generatedBlog.summary,
-        }
+      }
 
-        setPosts([newPost, ...posts])
+      setPosts([newPost, ...posts])
         setSuccess(`Successfully generated blog: ${generatedBlog.title}`)
         setTimeout(() => {
           setSuccess(null)
           loadBlogs() // Reload to get latest blogs from API
         }, 2000)
         
-        setFormData({
-          topic: "",
-        })
-        setShowForm(false)
+      setFormData({
+        topic: "",
+      })
+      setShowForm(false)
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to generate blog")
@@ -177,8 +177,8 @@ export default function BlogWriterPage() {
       if (response.error) {
         setError(response.error)
       } else {
-        setPosts(posts.filter((post) => post.id !== id))
-        setSelectedPost(null)
+      setPosts(posts.filter((post) => post.id !== id))
+      setSelectedPost(null)
         setSuccess("Blog deleted successfully")
         setTimeout(() => {
           setSuccess(null)

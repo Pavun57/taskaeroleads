@@ -87,94 +87,117 @@ class LinkedInScraper:
             if ChromeDriverManager:
                 logger.info("ChromeDriverManager is available, attempting to use it...")
                 # Use webdriver-manager to auto-download and manage driver
-                driver_path = ChromeDriverManager().install()
-                logger.info(f"ChromeDriverManager returned path: {driver_path}")
+                manager = ChromeDriverManager()
+                initial_path = manager.install()
+                logger.info(f"ChromeDriverManager returned path: {initial_path}")
                 
                 # Fix: webdriver-manager sometimes returns wrong file (like THIRD_PARTY_NOTICES.chromedriver)
-                # We need to find the actual chromedriver.exe
-                if not driver_path.endswith('.exe') or 'THIRD_PARTY' in driver_path or 'NOTICES' in driver_path:
-                    logger.warning(f"Path doesn't look like executable: {driver_path}")
-                    logger.info("Searching for actual chromedriver.exe...")
-                    
-                    # Get the directory containing the driver
-                    base_dir = os.path.dirname(driver_path)
-                    logger.info(f"Base directory: {base_dir}")
-                    
-                    # Try common executable locations
-                    possible_paths = [
-                        os.path.join(base_dir, "chromedriver.exe"),
-                        os.path.join(base_dir, "chromedriver"),
-                        os.path.join(base_dir, "..", "chromedriver.exe"),
-                        os.path.join(base_dir, "..", "chromedriver"),
-                    ]
-                    
-                    # Also check if there's a win64 or win32 subdirectory
-                    if "win64" in base_dir or "win32" in base_dir:
-                        # Already in the right place, check current and parent dirs
-                        possible_paths.extend([
-                            os.path.join(base_dir, "chromedriver.exe"),
-                            os.path.join(base_dir, "chromedriver"),
-                        ])
-                    else:
-                        # Check for win64/win32 subdirectories
-                        parent_dir = os.path.dirname(base_dir)
-                        possible_paths.extend([
-                            os.path.join(parent_dir, "win64", "chromedriver.exe"),
-                            os.path.join(parent_dir, "win32", "chromedriver.exe"),
-                            os.path.join(parent_dir, "win64", "chromedriver"),
-                            os.path.join(parent_dir, "win32", "chromedriver"),
-                        ])
-                    
-                    # Find the actual executable
-                    found_path = None
-                    for path in possible_paths:
-                        normalized_path = os.path.normpath(path)
-                        logger.info(f"Checking: {normalized_path}")
-                        if os.path.exists(normalized_path) and os.path.isfile(normalized_path):
-                            # On Windows, prefer .exe
-                            if platform.system() == "Windows" and normalized_path.endswith('.exe'):
-                                found_path = normalized_path
-                                logger.info(f"Found executable: {found_path}")
-                                break
-                            elif platform.system() != "Windows":
-                                found_path = normalized_path
-                                logger.info(f"Found executable: {found_path}")
-                                break
-                    
-                    if found_path:
-                        driver_path = found_path
-                    else:
-                        # Last resort: search the entire directory tree
-                        logger.warning("Could not find chromedriver.exe in expected locations, searching directory tree...")
-                        for root, dirs, files in os.walk(base_dir):
-                            for file in files:
-                                if file == "chromedriver.exe" or (platform.system() != "Windows" and file == "chromedriver"):
-                                    found_path = os.path.join(root, file)
-                                    logger.info(f"Found in directory search: {found_path}")
-                                    driver_path = found_path
-                                    break
-                            if found_path:
-                                break
+                # We need to find the actual chromedriver.exe in the driver directory
+                driver_path = None
                 
-                # Verify the driver file exists and is executable
-                if not os.path.exists(driver_path):
+                # Check if the returned path is actually the executable
+                if (os.path.exists(initial_path) and 
+                    os.path.isfile(initial_path) and 
+                    ('THIRD_PARTY' not in initial_path and 'NOTICES' not in initial_path) and
+                    (platform.system() == "Windows" and initial_path.endswith('.exe') or platform.system() != "Windows")):
+                    driver_path = initial_path
+                    logger.info(f"Using directly returned path: {driver_path}")
+                else:
+                    logger.warning(f"Path doesn't look like executable: {initial_path}")
+                    logger.info("Searching for actual chromedriver executable...")
+                    
+                    # Get the base directory - work backwards from the path to find driver root
+                    base_dir = os.path.dirname(initial_path)
+                    
+                    # Navigate up to find the driver root directory (usually contains version folder)
+                    # Path structure: .../.wdm/drivers/chromedriver/win64/VERSION/chromedriver.exe
+                    search_dirs = [base_dir]
+                    
+                    # Try parent directories up to 3 levels
+                    current_dir = base_dir
+                    for _ in range(3):
+                        parent = os.path.dirname(current_dir)
+                        if parent != current_dir:
+                            search_dirs.append(parent)
+                            current_dir = parent
+                        else:
+                            break
+                    
+                    # Also check common webdriver-manager cache locations
+                    wdm_cache = os.path.join(os.path.expanduser("~"), ".wdm", "drivers", "chromedriver")
+                    if os.path.exists(wdm_cache):
+                        search_dirs.append(wdm_cache)
+                    
+                    # Search for chromedriver executable
+                    executable_name = "chromedriver.exe" if platform.system() == "Windows" else "chromedriver"
+                    
+                    for search_dir in search_dirs:
+                        logger.info(f"Searching in: {search_dir}")
+                        
+                        # First check the directory directly
+                        direct_path = os.path.join(search_dir, executable_name)
+                        if os.path.exists(direct_path) and os.path.isfile(direct_path):
+                            driver_path = direct_path
+                            logger.info(f"Found executable in directory: {driver_path}")
+                            break
+                        
+                        # Then search recursively in subdirectories
+                        if os.path.isdir(search_dir):
+                            for root, dirs, files in os.walk(search_dir):
+                                for file in files:
+                                    if file == executable_name or (platform.system() != "Windows" and file == "chromedriver"):
+                                        candidate = os.path.join(root, file)
+                                        if os.path.isfile(candidate):
+                                            driver_path = candidate
+                                            logger.info(f"Found executable in tree: {driver_path}")
+                                            break
+                                if driver_path:
+                                    break
+                        
+                        if driver_path:
+                            break
+                    
+                    if not driver_path:
+                        logger.warning("Could not find chromedriver executable, will use initial path as fallback")
+                        driver_path = initial_path
+                
+                # Verify the driver file exists and is actually an executable
+                if not driver_path or not os.path.exists(driver_path):
                     logger.error(f"ChromeDriver not found at path: {driver_path}")
                     raise FileNotFoundError(f"ChromeDriver not found at {driver_path}")
                 
-                # Ensure .exe extension on Windows
-                if platform.system() == "Windows" and not driver_path.endswith('.exe'):
-                    logger.info("Windows detected, ensuring .exe extension...")
-                    exe_path = driver_path + '.exe'
-                    if os.path.exists(exe_path):
-                        logger.info(f"Found .exe version: {exe_path}")
-                        driver_path = exe_path
-                    else:
-                        logger.error(f"No .exe version found at: {exe_path}")
-                        raise FileNotFoundError(f"ChromeDriver executable not found. Tried: {driver_path}, {exe_path}")
+                # Verify it's not a text/notice file
+                if 'THIRD_PARTY' in driver_path or 'NOTICES' in driver_path:
+                    logger.error(f"ChromeDriver path points to a notice file, not executable: {driver_path}")
+                    raise FileNotFoundError(f"ChromeDriver path is invalid: {driver_path}")
+                
+                # On Windows, ensure it's .exe
+                if platform.system() == "Windows":
+                    if not driver_path.endswith('.exe'):
+                        logger.info("Windows detected, checking for .exe version...")
+                        exe_path = driver_path + '.exe' if not driver_path.endswith('.exe') else driver_path
+                        if os.path.exists(exe_path):
+                            logger.info(f"Using .exe version: {exe_path}")
+                            driver_path = exe_path
+                        else:
+                            # Try to find .exe in same directory
+                            dir_path = os.path.dirname(driver_path)
+                            exe_candidate = os.path.join(dir_path, "chromedriver.exe")
+                            if os.path.exists(exe_candidate):
+                                logger.info(f"Found .exe in directory: {exe_candidate}")
+                                driver_path = exe_candidate
+                            else:
+                                logger.error(f"No .exe version found. Tried: {driver_path}, {exe_path}, {exe_candidate}")
+                                raise FileNotFoundError(f"ChromeDriver .exe not found. Tried: {driver_path}")
+                
+                # Verify file size (executables should be > 1MB typically)
+                file_size = os.path.getsize(driver_path)
+                if file_size < 1024:  # Less than 1KB is suspicious
+                    logger.warning(f"ChromeDriver file is suspiciously small ({file_size} bytes), might be wrong file")
                 
                 logger.info(f"Using ChromeDriver path: {driver_path}")
                 logger.info(f"File exists: {os.path.exists(driver_path)}")
-                logger.info(f"File size: {os.path.getsize(driver_path)} bytes")
+                logger.info(f"File size: {file_size} bytes")
                 
                 logger.info(f"Creating Service with path: {driver_path}")
                 service = Service(driver_path)
