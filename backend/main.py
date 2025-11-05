@@ -201,21 +201,36 @@ async def root():
 
 
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 8000))
-    host = os.getenv("HOST", "0.0.0.0")
+    # For development - use uvicorn with reload
+    # For production - use gunicorn (see start.sh or Procfile)
+    import sys
     
-    print(f"\nStarting server on http://{host}:{port}")
-    print(f"API Documentation: http://{host}:{port}/docs")
-    print(f"Task 1 (LinkedIn Scraper): http://{host}:{port}/task1/docs")
-    print(f"Task 2 (Autodialer): http://{host}:{port}/task2/docs")
-    print(f"Task 3 (Blog Generator): http://{host}:{port}/task3/docs")
-    print("\n" + "=" * 80)
-    
-    uvicorn.run(
-        "main:main_app",
-        host=host,
-        port=port,
-        reload=True,
-        reload_dirs=[".", "task1", "task2", "task3"]
-    )
+    if len(sys.argv) > 1 and sys.argv[1] == "prod":
+        # Production mode - use gunicorn
+        import subprocess
+        port = os.getenv("PORT", "8000")
+        subprocess.run([
+            "gunicorn", "main:main_app",
+            "--config", "gunicorn_config.py",
+            "--bind", f"0.0.0.0:{port}"
+        ])
+    else:
+        # Development mode - use uvicorn with reload
+        port = int(os.getenv("PORT", 8000))
+        host = os.getenv("HOST", "0.0.0.0")
+        
+        print(f"\nStarting server on http://{host}:{port}")
+        print(f"API Documentation: http://{host}:{port}/docs")
+        print(f"Task 1 (LinkedIn Scraper): http://{host}:{port}/task1/docs")
+        print(f"Task 2 (Autodialer): http://{host}:{port}/task2/docs")
+        print(f"Task 3 (Blog Generator): http://{host}:{port}/task3/docs")
+        print("\n" + "=" * 80)
+        
+        uvicorn.run(
+            "main:main_app",
+            host=host,
+            port=port,
+            reload=True,
+            reload_dirs=[".", "task1", "task2", "task3"]
+        )
 

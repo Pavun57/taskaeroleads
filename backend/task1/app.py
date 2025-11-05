@@ -23,7 +23,6 @@ app = FastAPI(title="LinkedIn Leads Scraper API")
 
 class ScrapeRequest(BaseModel):
     prompt: str
-    headless: bool = True  # Default to headless mode
     profile_count: int = 20  # Number of profiles to scrape (default 20)
     gemini_api_key: Optional[str] = None  # BYOS - Bring Your Own Service
     linkedin_email: Optional[str] = None  # BYOS - LinkedIn credentials
@@ -79,9 +78,9 @@ async def scrape_leads(request: ScrapeRequest):
         logger.info("LinkedIn scraper initialized")
         
         logger.info("Step 3: Starting profile scraping...")
-        logger.info(f"Running in {'headless' if request.headless else 'visible'} mode")
+        logger.info("Running in headless mode")
         logger.info(f"Requested profile count: {request.profile_count}")
-        profiles = await scraper.scrape_profiles(keywords, limit=request.profile_count, headless=request.headless)
+        profiles = await scraper.scrape_profiles(keywords, limit=request.profile_count, headless=True)
         logger.info(f"Scraping completed. Found {len(profiles)} profiles")
         
         if not profiles:

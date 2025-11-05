@@ -11,10 +11,16 @@ logger = logging.getLogger(__name__)
 class BlogGenerator:
     """Generates blog articles using Gemini API"""
     
-    def __init__(self):
-        api_key = os.getenv("GEMINI_API_KEY")
+    def __init__(self, api_key: Optional[str] = None):
+        """
+        Initialize BlogGenerator with API key.
+        
+        Args:
+            api_key: Optional Gemini API key. If not provided, reads from GEMINI_API_KEY env var.
+        """
+        api_key = api_key or os.getenv("GEMINI_API_KEY")
         if not api_key:
-            raise ValueError("GEMINI_API_KEY environment variable not set")
+            raise ValueError("GEMINI_API_KEY must be provided as parameter or set as environment variable")
         
         genai.configure(api_key=api_key)
         model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")

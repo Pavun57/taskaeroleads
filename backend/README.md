@@ -12,11 +12,45 @@ pip install -r requirements.txt
 
 ### 2. Run the Server
 
+**Development Mode:**
 ```bash
 python main.py
 ```
 
+**Production Mode (with Gunicorn):**
+```bash
+python main.py prod
+# or
+gunicorn main:main_app --config gunicorn_config.py --bind 0.0.0.0:8000
+```
+
 The server will start on `http://localhost:8000` (or your configured port).
+
+## 📦 Deployment on Render
+
+### Quick Deploy
+
+1. **Create a new Web Service** on Render
+2. **Connect your repository**
+3. **Configure Build & Start Commands:**
+   - **Build Command:** `pip install -r requirements.txt`
+   - **Start Command:** `gunicorn main:main_app --config gunicorn_config.py --bind 0.0.0.0:$PORT`
+4. **Set Environment Variables** (optional - can be set via API):
+   - `PORT` (auto-set by Render)
+   - `GEMINI_API_KEY` (optional)
+   - `LINKEDIN_EMAIL` (optional)
+   - `LINKEDIN_PASSWORD` (optional)
+   - `TWILIO_ACCOUNT_SID` (optional)
+   - `TWILIO_AUTH_TOKEN` (optional)
+   - `TWILIO_FROM_NUMBER` (optional)
+
+### Using Procfile
+
+Render will automatically detect the `Procfile` and use it for the start command.
+
+### Using render.yaml
+
+If you have a `render.yaml` file, you can use it to configure the service declaratively.
 
 ## 📋 Tasks Overview
 
@@ -40,10 +74,11 @@ Scrape LinkedIn profiles based on natural language prompts.
 ```json
 {
   "prompt": "i want the leads they are doing the food business in dubai",
-  "profile_count": 50,
-  "headless": true
+  "profile_count": 50
 }
 ```
+
+**Note:** The scraper always runs in headless mode (no browser window).
 
 ### Task 2: Autodialer (`/task2`)
 

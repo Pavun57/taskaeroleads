@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: taskaeroleads-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn main:main_app --config gunicorn_config.py --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: PYTHON_VERSION
+        value: 3.11.0
+

@@ -8,5 +8,35 @@
     "message": "Call failed: Network error",
     "error_message": "Network error",
     "twilio_sid": null
+  },
+  {
+    "call_id": "de242a81-e98a-4462-a81f-4b8191657241",
+    "phone_number": "9876543210",
+    "status": "failed",
+    "duration": 1.0901031494140625,
+    "timestamp": "2025-11-05 19:47:20",
+    "message": "Call failed: No answer",
+    "error_message": "No answer",
+    "twilio_sid": null
+  },
+  {
+    "call_id": "ee25bd31-a316-4998-8da1-e991b4770f03",
+    "phone_number": "9675648298",
+    "status": "answered",
+    "duration": 2.083695650100708,
+    "timestamp": "2025-11-05 19:56:44",
+    "message": "Call answered and completed successfully",
+    "error_message": null,
+    "twilio_sid": null
+  },
+  {
+    "call_id": "76f29ab3-5804-4be3-b050-291e68d80c4a",
+    "phone_number": "98635939222",
+    "status": "answered",
+    "duration": 3.0493903160095215,
+    "timestamp": "2025-11-05 20:05:23",
+    "message": "Call answered and completed successfully",
+    "error_message": null,
+    "twilio_sid": null
   }
 ]
