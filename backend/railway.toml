@@ -3,4 +3,4 @@ builder = "NIXPACKS"
 buildCommand = "pip install --upgrade pip setuptools wheel && pip install --prefer-binary -r requirements.txt"
 
 [start]
-command = "gunicorn main:app -w 1 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT"
+command = "gunicorn main:main_app -w 1 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT"
