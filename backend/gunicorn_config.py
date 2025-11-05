@@ -1,5 +1,5 @@
 """
-Gunicorn configuration for Render deployment
+Gunicorn configuration for production deployment
 """
 import multiprocessing
 import os
