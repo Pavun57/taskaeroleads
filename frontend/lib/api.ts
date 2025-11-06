@@ -71,7 +71,7 @@ class ApiClient {
   async clearConfig(keys: string[]) {
     return this.request("/api/config/clear", {
       method: "POST",
-      body: JSON.stringify(keys),
+      body: JSON.stringify({ keys }),
     })
   }
 

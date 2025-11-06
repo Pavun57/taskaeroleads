@@ -138,10 +138,13 @@ async def get_config_status():
     return config_manager.get_config_status()
 
 
+class ClearConfigRequest(BaseModel):
+    keys: list[str]
+
 @main_app.post("/api/config/clear", response_model=Dict)
-async def clear_config(keys: list):
+async def clear_config(request: ClearConfigRequest):
     """Clear specific configuration keys"""
-    return config_manager.clear_config(keys)
+    return config_manager.clear_config(request.keys)
 
 
 # Mount task apps with prefixes
