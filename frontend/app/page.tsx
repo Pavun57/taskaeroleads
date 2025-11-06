@@ -53,7 +53,7 @@ export default function Home() {
                 AI-generated content all in one platform.
               </p>
               <p className="text-sm text-muted-foreground mb-6">
-                Task done by <span className="font-semibold text-foreground">PAVUN KUMAR R</span>
+                Created by <span className="font-semibold text-foreground">PAVUN KUMAR R</span>
               </p>
               <div className="flex items-center justify-center gap-4 flex-wrap">
                 <div className="px-4 py-2 rounded-full bg-secondary text-sm">✓ Enterprise-grade security</div>
@@ -72,17 +72,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-        
-
-        {/* Footer Credit */}
-        <footer className="px-4 sm:px-6 lg:px-8 py-8 border-t border-border">
-          <div className="max-w-7xl mx-auto text-center">
-            <p className="text-sm text-muted-foreground">
-              Task done by <span className="font-semibold text-foreground">PAVUN KUMAR R</span>
-            </p>
-          </div>
-        </footer>
       </main>
     </>
   )
